@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/document")
 public class DocumentController {
 
-    @GetMapping("/ticketId")
+    @GetMapping("/{ticketId}")
     public String getDocument(@PathVariable (value = "ticketId") long id){
         return "API para geração automática de Parecer Técnico";
     }
