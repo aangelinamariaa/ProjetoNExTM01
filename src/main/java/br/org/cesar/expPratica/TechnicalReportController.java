@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TechnicalReportController {
 
     @PostMapping("/report")
-    public String insertTechnicalReport (@RequestBody(required=false) TechnicalReport technicalReport){
-        return "Cadastro realizado com sucesso!";
+    public String insertTechnicalReport (
+    		@RequestBody(required=true) TechnicalReport technicalReport){
+        return "Cadastro realizado com sucesso! "+technicalReport;
     }
 
 }
