@@ -1,15 +1,12 @@
 package br.org.cesar.expPratica;
 
-<<<<<<< HEAD
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-=======
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 //import org.springframework.http.*;
->>>>>>> 2ea18ac (gerar identificador + correcao arquivo pom)
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,7 +16,6 @@ public class DocumentController {
     @Autowired
     private TechnicalReportRepository repository;
 
-<<<<<<< HEAD
     @GetMapping("/{ticketId}")
     public String getDocument(@PathVariable (value = "ticketId") long id){
     	Optional<TechnicalReport> technicalReport = repository.findById(id);
@@ -28,9 +24,7 @@ public class DocumentController {
     	}
         return "Sem documento";
     }
-    
-}
-=======
+
     @GetMapping("/get/{ticketId}")
     public String getDocById(@PathVariable (value = "ticketId") long id){
         return "Id localizado: " + id;
@@ -50,4 +44,3 @@ public class DocumentController {
     }
 
 }
->>>>>>> 2ea18ac (gerar identificador + correcao arquivo pom)
