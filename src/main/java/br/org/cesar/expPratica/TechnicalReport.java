@@ -1,24 +1,36 @@
 package br.org.cesar.expPratica;
+import org.hibernate.validator.constraints.NotBlank;
 
 public class TechnicalReport {
 
+    private Long id;
+	@NotBlank
     private String name;
-    private String equipment;
-    private String defect;
+    @NotBlank
+	private String equipment;
+    @NotBlank
+	private String defect;
+	@NotBlank
     private String description;
 
     public TechnicalReport() {
     }
 
-    public TechnicalReport(String name, 
-    		String equipment, 
-    		String defect, 
-    		String description) {
+    public TechnicalReport(Long id, String name, String equipment, String defect, String description) {
+		this.id = id;
 		this.name = name;
 		this.equipment = equipment;
 		this.defect = defect;
 		this.description = description;
 	}
+
+	public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 	public String getName() {
 		return name;
@@ -52,9 +64,4 @@ public class TechnicalReport {
 		this.description = description;
 	}
 
-	public String toString(){
-		return "name: " + name + ", equipment: " +
-				equipment + ", defect: " + defect + 
-				", description: " + description;
-	}
 }
