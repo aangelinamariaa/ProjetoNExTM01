@@ -1,16 +1,35 @@
 package br.org.cesar.expPratica;
 import org.hibernate.validator.constraints.NotBlank;
 
-public class TechnicalReport {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-    private Long id;
+@Entity
+@Table(name = "technicalReport")
+public class TechnicalReport {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private long id;
+
 	@NotBlank
+	@Column(name = "name")
     private String name;
-    @NotBlank
-	private String equipment;
-    @NotBlank
-	private String defect;
+
 	@NotBlank
+	@Column(name = "equipment")
+    private String equipment;
+
+	@NotBlank
+	@Column(name = "defect")
+    private String defect;
+
+	@NotBlank
+	@Column(name = "description")
     private String description;
 
     public TechnicalReport() {
