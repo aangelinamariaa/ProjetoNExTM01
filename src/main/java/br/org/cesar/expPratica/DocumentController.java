@@ -3,6 +3,10 @@ package br.org.cesar.expPratica;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+//import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,5 +24,23 @@ public class DocumentController {
     	}
         return "Sem documento";
     }
-    
+
+    @GetMapping("/get/{ticketId}")
+    public String getDocById(@PathVariable (value = "ticketId") long id){
+        return "Id localizado: " + id;
+    }
+
+    @GetMapping()
+    public String getId(){
+        String ticket = idGeneretor();
+        return "Número Id gerado: " + ticket;
+    }
+
+    private String idGeneretor() {
+        SimpleDateFormat dataTimeAtual = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        Date date = new Date();
+        String numTicket = dataTimeAtual.format(date);
+        return numTicket;
+    }
+
 }
