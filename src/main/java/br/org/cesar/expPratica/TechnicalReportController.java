@@ -1,21 +1,12 @@
 package br.org.cesar.expPratica;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-<<<<<<< HEAD
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-=======
 import org.springframework.web.bind.annotation.*;
->>>>>>> 6d3af88 (Atualização de metodos de conversão de arquivo - TXT e JSON)
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 @RestController
