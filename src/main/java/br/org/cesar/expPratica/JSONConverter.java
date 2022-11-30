@@ -1,19 +1,28 @@
 package br.org.cesar.expPratica;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 import java.io.*;
 
 public class JSONConverter {
-    public static void technicalReportToResource(TechnicalReport technicalReport) throws IOException {
+    public ResponseEntity<byte[]> technicalReportToResource(TechnicalReport technicalReport) throws IOException {
 
-        Writer printWriter = new StringWriter();
+        StringWriter outString= new StringWriter();
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+
+        Writer printWriter = new PrintWriter(byteStream);
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(printWriter, technicalReport);
 
-        File targetFile = new File("technical_report.json");
-        OutputStream outStream = new FileOutputStream(targetFile);
-        outStream.write(printWriter.toString().getBytes());
+        String filename = "TechnicalReport.json";
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .contentType(MediaType.parseMediaType("application/json"))
+                .body(byteStream.toByteArray());
     }
 }

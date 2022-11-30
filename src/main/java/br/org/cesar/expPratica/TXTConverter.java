@@ -1,18 +1,23 @@
 package br.org.cesar.expPratica;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 public class TXTConverter {
-
-    public static void technicalReportToResource (TechnicalReport technicalReport) throws IOException {
-
+    public ResponseEntity<InputStreamResource>  technicalReportToResource (TechnicalReport technicalReport){
         String reportAsString = technicalReport.toString();
+        InputStream targetStream = new ByteArrayInputStream(reportAsString.getBytes());
 
-        File targetFile = new File("technical_report.txt");
-        OutputStream outStream = new FileOutputStream(targetFile);
-        outStream.write(reportAsString.getBytes());
+        InputStreamResource inputStreamResource = new InputStreamResource(targetStream);
+        String filename = "TechnicalReport.txt";
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                .contentType(MediaType.parseMediaType("application/txt"))
+                .body(inputStreamResource);
     }
 }
