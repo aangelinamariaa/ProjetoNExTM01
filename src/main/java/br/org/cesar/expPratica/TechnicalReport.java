@@ -83,4 +83,13 @@ public class TechnicalReport {
 		this.description = description;
 	}
 
+	@Override
+	public String toString() {
+		return "Id - " + id + "\n"
+				+ "Nome - " + name + "\n"
+				+ "Equipamento - " + equipment + "\n"
+				+ "Defeito - " + defect + "\n"
+				+ "Parecer - " + description;
+	}
+
 }
