@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Optional;
 public class TXTConverter {
     public ResponseEntity<InputStreamResource>  technicalReportToResource (TechnicalReport technicalReport){
         String reportAsString = technicalReport.toString();

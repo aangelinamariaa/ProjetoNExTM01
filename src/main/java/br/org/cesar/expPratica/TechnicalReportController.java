@@ -8,12 +8,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 public class TechnicalReportController {
 
     private TXTConverter txtConverter = new TXTConverter();
     private JSONConverter jsonConverter = new JSONConverter();
+    //private XlsxConverter xlsxConverter = new XlsxConverter();
 
     @Autowired
     private TechnicalReportRepository repository;
@@ -23,34 +25,25 @@ public class TechnicalReportController {
             throws InvalidFormatException, IOException {
         XlsxConverter.generateXlsx(technicalReport);
 
-        TechnicalReport result = repository.save(technicalReport);
-
+       // TechnicalReport result = repository.save(technicalReport);
+        repository.save(technicalReport);
         return "Cadastro realizado com sucesso! "+technicalReport;
     }
 
-    @GetMapping("{ticketId}/txt")
-    public ResponseEntity<InputStreamResource> technicalReportTxt(@PathVariable(value = "ticketId") long id){
-
-        TechnicalReport technicalReport = new TechnicalReport();
-        technicalReport.setId(id);
-        technicalReport.setName("Aguida");
-        technicalReport.setEquipment("TV");
-        technicalReport.setDefect("Tela Trincada");
-        technicalReport.setDescription("Caiu");
-
-       return txtConverter.technicalReportToResource(technicalReport);
-    }
-
-    @GetMapping("{ticketId}/json")
-    public ResponseEntity<byte[]> technicalReportJson(@PathVariable(value = "ticketId") long id) throws IOException {
-
-        TechnicalReport technicalReport = new TechnicalReport();
-        technicalReport.setId(id);
-        technicalReport.setName("Aguida");
-        technicalReport.setEquipment("TV");
-        technicalReport.setDefect("Tela Trincada");
-        technicalReport.setDescription("Caiu");
-
-        return jsonConverter.technicalReportToResource(technicalReport);
+    @GetMapping("{ticketId}/file/{format}")
+    public ResponseEntity<?> generateTechnicalReport(@PathVariable(value = "ticketId") long id,
+            @PathVariable(value = "format") String format) throws IOException {
+    	Optional<TechnicalReport> technicalReport = repository.findById(id);
+    	if(technicalReport.isPresent()){
+    		switch (format){
+    		case "txt":
+    			return txtConverter.technicalReportToResource(technicalReport.get());
+    		case "json":
+    			return jsonConverter.technicalReportToResource(technicalReport.get());
+    		//case "xlsx":
+    			//return XlsxConverter.technicalReportToResource(technicalReport.get());
+            }
+        }
+        return ResponseEntity.notFound().build();
     }
 }
