@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import java.io.*;
+import java.util.Optional;
 
 public class JSONConverter {
     public ResponseEntity<byte[]> technicalReportToResource(TechnicalReport technicalReport) throws IOException {
